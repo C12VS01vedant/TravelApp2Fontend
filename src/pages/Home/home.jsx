@@ -5,7 +5,9 @@ import { Fragment, useEffect, useState } from 'react';
 import '../Home/home.css';
 import axios from 'axios';
 import { Categories } from '../../components';
-import { useCategory } from '../../context';
+import { useCategory,useDate } from '../../context';
+//import {SearchStayWithDate} from '../../components';
+import {SearchStayWithDate} from '../../components';
 
 
 export const Home = () => {
@@ -14,11 +16,12 @@ export const Home = () => {
   const [testData, setTestData] = useState([]);
   const [hotels, setHotels] = useState([]);
   const {hotelCategory}=useCategory();
+  const {isSearchModalOpen}=useDate();
 
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(`https://travelappved12.cyclic.app/api/hotels?category=${hotelCategory}`);
+        const { data } = await axios.get(`http://localhost:3500/api/hotels?category=${hotelCategory}`);
         setTestData(data);
         setHotels(data ? data.slice(0, 16) : []);
       } catch (err) {
@@ -63,6 +66,9 @@ export const Home = () => {
       ) : (
         <></>
       )}
+      {
+        isSearchModalOpen && <SearchStayWithDate/>
+      }
     </Fragment>
   );
 };

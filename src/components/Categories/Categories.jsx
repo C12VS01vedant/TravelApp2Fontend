@@ -21,7 +21,7 @@ export const Categories = () => {
     (async () => {
       try {
         const { data } = await axios.get(
-          "https://travelappved12.cyclic.app/api/category"
+          "http://localhost:3500/api/category"
         );
         const categoryToShow = data.slice(
           numberOfCategories+10>data.length
